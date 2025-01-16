@@ -12,8 +12,8 @@ const TokenContainer = styled(Box)`
     &:hover {
         border-color: gray;
     }
-    max-width: 30%;
-    width: 30%;
+    max-width: 33%;
+    width: 33%;
     min-width: 400px;
     max-height: 350px;
     overflow: hidden;

@@ -161,16 +161,18 @@ export interface GetCommentsParams {
   tokenAddress: string
   limit?: number
   offset?: number
+  sortingOrder?: SortOrder
 }
 
 export const getTokenComments = async (params: GetCommentsParams) => {
-  const {limit = 100, offset = 0, tokenAddress} = params
+  const {limit = 100, offset = 0, tokenAddress, sortingOrder} = params
 
   const {data} = await client.get<UserComment[]>('/comments', {
     params: {
       tokenAddress,
       limit,
-      offset
+      offset,
+      sortingOrder
     }
   })
   return data
@@ -220,11 +222,15 @@ export const getTrades = async (params: GetTradeParams) => {
 
 export interface GetCandlesParams {
   tokenAddress: string
+  timestampFrom?: number
+  timestampTo?: number
   offset?: number
   limit?: number
 }
 
-export const getCandles = async (params: GetCandlesParams) => {
+export const getCandles = async (
+  params: GetCandlesParams
+) => {
   const {limit = 100, offset = 0} = params
 
   const {data} = await client.get<Candle[]>('/candles', {

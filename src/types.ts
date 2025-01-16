@@ -100,8 +100,10 @@ export interface JwtTokenPayload {
 }
 
 export interface Candle {
-  highPrice: string
-  lowPrice: string
+  highPrice: number
+  lowPrice: number
+  openPrice: number
+  closePrice: number
   volume: string
   time: string
 }
@@ -150,7 +152,9 @@ export interface Competition {
 
 export enum SortField {
   timestamp = 'timestamp',
-  marketCap = 'marketCap'
+  marketCap = 'marketCap',
+  lastComment = 'lastComment',
+  lastTrade = 'lastTrade',
 }
 
 export enum SortOrder {

@@ -21,6 +21,7 @@ import {breakpoints} from "../../utils/breakpoints.ts";
 import {CompetitionWinner} from "./CompetitionWinner.tsx";
 import {TokenHeader} from "./TokenHeader.tsx";
 import {shortEthAddress} from "../../utils";
+import {AdvancedTradingView} from "./trading-view-chart";
 
 const ButtonBack = () => {
   const navigate = useNavigate()
@@ -178,8 +179,12 @@ export const TokenPage = () => {
       <TokenHeader isLoading={isLoading} data={token} />
       <Box direction={'row'} justify={'between'} gap={'48px'}>
         <Box width={'100%'} margin={{ top: '16px' }}>
-          <Box style={{ position: 'relative' }}>
-            <PriceChart tokenAddress={tokenAddress} />
+          <Box style={{ position: 'relative', height: '500px' }}>
+            {/*<PriceChart tokenAddress={tokenAddress} />*/}
+            <AdvancedTradingView
+              tokenAddress={tokenAddress}
+              tokenName={token?.name || '-'}
+            />
           </Box>
           {token &&
               <Box margin={{ top: '32px' }}>
@@ -187,7 +192,7 @@ export const TokenPage = () => {
                       <Radio.Button value="thread">Thread</Radio.Button>
                       <Radio.Button value="trades">Trades</Radio.Button>
                   </Radio.Group>
-                  <Box margin={{ top: '16px' }}>
+                  <Box margin={{ top: '8px' }}>
                     {activeTab === 'thread' &&
                         <TokenComments tokenAddress={tokenAddress} />
                     }

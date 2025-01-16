@@ -2,13 +2,34 @@ import { http, createConfig } from 'wagmi'
 import { harmonyOne } from 'wagmi/chains'
 import { getDefaultConfig } from "connectkit";
 import {appConfig} from "./config.ts";
+import { type Chain} from 'viem'
+
+export const harmonyOneTestnet
+  = {
+  id: 1666700000,
+  name: 'Harmony One',
+  nativeCurrency: {
+    name: 'Harmony',
+    symbol: 'ONE',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: { http: ['https://api.s0.b.hmny.io'] },
+  },
+  blockExplorers: {
+    default: { name: 'Harmony Explorer', url: 'https://explorer.testnet.harmony.one'},
+  },
+  contracts: {},
+} as const satisfies Chain
+
 
 export const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [harmonyOne],
+    chains: [harmonyOne, harmonyOneTestnet],
     transports: {
       [harmonyOne.id]: http(),
+      [harmonyOneTestnet.id]: http(),
     },
     walletConnectProjectId: appConfig.walletConnectProjectId,
     appName: "Pump.One",

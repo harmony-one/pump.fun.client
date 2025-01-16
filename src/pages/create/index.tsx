@@ -11,8 +11,6 @@ import {useClientData} from "../../providers/DataProvider.tsx";
 import {Token, TokenMetadata} from "../../types.ts";
 import {addTokenMetadata, getTokens} from "../../api";
 import {useAccount} from "wagmi";
-import {harmonyOne} from "wagmi/chains";
-import { switchNetwork } from '@wagmi/core'
 import {getFormError} from "./utils.ts";
 import useDebounce from "../../hooks/useDebounce.ts";
 
@@ -73,9 +71,9 @@ export const CreatePage = () => {
       if(!jwtTokens) {
         return
       }
-      if(account.chainId !== harmonyOne.id) {
-        await switchNetwork(config, { chainId: harmonyOne.id })
-      }
+      // if(account.chainId !== harmonyOne.id) {
+      //   await switchNetwork(config, { chainId: harmonyOne.id })
+      // }
       setInProgress(true)
       setCurrentStatus('Uploading token metadata...')
       const payload: TokenMetadata = {
@@ -103,7 +101,7 @@ export const CreatePage = () => {
       setCurrentStatus('Waiting for confirmation...')
       const receipt = await waitForTransactionReceipt(config, {
         hash: txnHash,
-        confirmations: 6
+        confirmations: 2
       })
       console.log('Create contract receipt:', receipt)
       let mintedToken: Token

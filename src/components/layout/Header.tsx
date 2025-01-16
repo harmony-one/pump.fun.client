@@ -92,6 +92,8 @@ export const Header = () => {
     style={{
       position: 'absolute',
       zIndex: 10,
+      backgroundColor: 'rgba(30, 30, 32, 0.7)',
+      backdropFilter: 'blur(5px)',
       boxShadow: '0 -6px 10px 5px rgba(0, 0, 0, 0.6)'
   }}
   >

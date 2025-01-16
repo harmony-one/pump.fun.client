@@ -10,9 +10,7 @@ import {Token, TokenTrade} from "../../types.ts";
 import {waitForTransactionReceipt, readContract} from "wagmi/actions";
 import {config} from "../../wagmi.ts";
 import {getTrades} from "../../api";
-import {harmonyOne} from "wagmi/chains";
 import Decimal from "decimal.js";
-import {switchNetwork} from "@wagmi/core";
 // @ts-ignore
 import { ReactComponent as HarmonyLogo } from '../../assets/harmony-one.svg'
 import useDebounce from "../../hooks/useDebounce.ts";
@@ -58,7 +56,7 @@ export const TradingForm = (props: {
   const { data: tokenBalance, refetch: refetchOneBalance } = useBalance({
     token: token?.address as `0x${string}`,
     address: account?.address,
-    chainId: harmonyOne.id,
+    chainId: account.chainId,
   })
   const tokenBalanceFormatted = useMemo(() => {
     return tokenBalance && tokenBalance.value > 0n
@@ -67,7 +65,7 @@ export const TradingForm = (props: {
   }, [tokenBalance])
   const { data: oneBalance, refetch: refetchTokenBalance } = useBalance({
     address: account?.address,
-    chainId: harmonyOne.id,
+    chainId: account.chainId,
   })
   const oneBalanceFormatted = useMemo(() => {
     return oneBalance && oneBalance.value > 0n
@@ -128,10 +126,9 @@ export const TradingForm = (props: {
         message.error(`Enter amount to trade`)
         return
       }
-      if(account.chainId !== harmonyOne.id) {
-        await switchNetwork(config, { chainId: harmonyOne.id })
-        console.log('Network switched')
-      }
+      // if(account.chainId !== harmonyOne.id) {
+      //   await switchNetwork(config, { chainId: harmonyOne.id })
+      // }
       const amountFormatted = new Decimal(amount || 0).toFixed()
       console.log('amount formatted:', amountFormatted)
       const value = parseUnits(amountFormatted, 18)
